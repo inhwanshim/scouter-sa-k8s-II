@@ -22,6 +22,7 @@ EXPOSE 6100/udp
 
 
 WORKDIR /opt/scouter
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
 CMD ["java", "-classpath", "/opt/scouter/agent.host/scouter.host.jar", "scouter.boot.Boot", "/scouter/lib"]
-#CMD ["/opt/tomcat/bin/catalina.sh", "run"]
-sh /opt/tomcat/bin/catalina.sh
+
+##sh /opt/tomcat/bin/catalina.sh
