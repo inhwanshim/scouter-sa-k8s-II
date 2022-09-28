@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: scouter-agent
+  namespace: scouter
+  labels:
+    app: scouter-agent
+spec:
+  selector:
+    matchLabels:
+      name: scouter-agent
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        name: scouter-agent
+    spec:
+      terminationGracePeriodSeconds: 30
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: scouter-agent
+        image: wlbebetter/scouter-agent:2.17.1
+        volumeMounts:
+        - name: scouter-agent-config
+          mountPath: /opt/scouter/agent.java/conf
+      volumes:
+      - name: scouter-agent-config
+        configMap:
+          name: scouter-agent-config
+

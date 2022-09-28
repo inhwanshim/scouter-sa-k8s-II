@@ -1,0 +1,11 @@
+namespace: scouter
+
+resources:
+- deployment.yaml
+- clusterip.yaml
+
+configMapGenerator:
+- name: scouter-agent-config
+  files:
+  - scouter.conf
+
