@@ -10,8 +10,8 @@ ADD ./agent.java /opt/scouter/agent.java
 ADD ./tomcat /opt/tomcat
 COPY catalina.sh $TOMCAT_HOME/bin/catalina.sh
 
-RUN addgroup tomcat		
-RUN useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat		
+#RUN addgroup tomcat		
+#RUN useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat		
 
 #-- Service --#
 EXPOSE 6180/tcp
@@ -23,4 +23,5 @@ EXPOSE 6100/udp
 
 WORKDIR /opt/scouter
 CMD ["java", "-classpath", "/opt/scouter/agent.host/scouter.host.jar", "scouter.boot.Boot", "/scouter/lib"]
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+#CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+sh /opt/tomcat/bin/catalina.sh
